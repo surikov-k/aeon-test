@@ -132,7 +132,7 @@ let common = {
         common.menu_popup_hide_all('all');
         // vars
         let data = {plot_id: plot_id};
-        let location = {dpt: 'plot', act: 'edit_window'};
+        let location = {dpt: 'user', act: 'edit_window'};
         // call
         request({location: location, data: data}, (result) => {
             common.modal_show(400, result.html);
