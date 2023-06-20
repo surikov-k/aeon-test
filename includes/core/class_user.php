@@ -103,12 +103,12 @@ class User
     while ($row = DB::fetch_row($q)) {
       $items[] = [
         'id' => (int)$row['user_id'],
-        'plot_id' => $row['plot_id'],
+        'plot_id' => $row['plot_id'] ? $row['plot_id'] : '-',
         'first_name' => $row['first_name'],
         'last_name' => $row['last_name'],
         'phone' => $row['phone'],
         'email' => $row['email'],
-        'last_login' => date('Y/m/d', $row['last_login'])
+        'last_login' => $row['last_login'] ? date('Y/m/d', $row['last_login']): '-'
       ];
     }
     // paginator
@@ -141,7 +141,7 @@ class User
   {
     // vars
     $user_id = isset($d['id']) && is_numeric($d['id']) ? $d['id'] : 0;
-    $plot_id = isset($d['plot_id']) ? implode(',', array_filter(explode(',', $d['plot_id']), 'is_numeric')): '';
+    $plot_id = isset($d['plot_id']) ? implode(',', array_filter(explode(',', $d['plot_id']), 'is_numeric')) : '';
     $first_name = $d['first_name'] ?? '';
     $last_name = $d['last_name'] ?? '';
     $phone = isset($d['phone']) ? preg_replace('~\D+~', '', $d['phone']) : '';
@@ -196,5 +196,16 @@ class User
     return User::users_fetch(['offset' => $offset]);
   }
 
+  public static function delete($d)
+  {
+    $user_id = isset($d['id']) && is_numeric($d['id']) ? $d['id'] : 0;
+    $offset = isset($d['offset']) ? preg_replace('~\D+~', '', $d['offset']) : 0;
+
+    //delete
+    if ($user_id) {
+      DB::query("DELETE FROM users WHERE user_id='" . $user_id . "';") or die (DB::error());
+    }
+    return User::users_fetch(['offset' => $offset]);
+  }
 
 }

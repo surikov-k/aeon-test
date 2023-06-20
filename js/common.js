@@ -192,7 +192,7 @@ let common = {
       last_name: gv('last_name'),
       phone: gv('phone'),
       email: gv('email'),
-
+      offset: global.offset
     };
     let location = {dpt: 'user', act: 'edit_update'};
     // call
@@ -212,6 +212,15 @@ let common = {
       }
     });
   },
+
+  delete_user: (dpt, id) => {
+    let data = {id, offset: global.offset};
+    let location = {dpt, act: 'delete'}
+
+    request({location, data}, (result) => {
+      html('table', result.html)
+    })
+  }
 }
 
 add_event(document, 'DOMContentLoaded', common.init);
