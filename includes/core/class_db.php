@@ -29,6 +29,10 @@ class DB {
         return $q->fetch();
     }
 
+    public static function last_insert_id() {
+        return DB::$db->lastInsertId();
+    }
+
     public static function error() {
         $res = DB::connect()->errorInfo();
         trigger_error($res[2], E_USER_WARNING);

@@ -80,7 +80,7 @@ class Plot {
     // ACTIONS
 
     public static function plot_edit_window($d = []) {
-        $plot_id = isset($d['plot_id']) && is_numeric($d['plot_id']) ? $d['plot_id'] : 0;
+        $plot_id = isset($d['id']) && is_numeric($d['id']) ? $d['id'] : 0;
         HTML::assign('plot', Plot::plot_info($plot_id));
         return ['html' => HTML::fetch('./partials/plot_edit.html')];
     }
