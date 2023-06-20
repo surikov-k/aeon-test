@@ -1,12 +1,12 @@
 <?php
 
-function controller_users() {
+function controller_users()
+{
   // vars
   $offset = isset($_GET['offset']) ? flt_input($_GET['offset']) : 0;
   $search = $_GET['search'] ?? '';
-  // info
-//  $plots = Plot::plots_list(['mode' => 'page', 'offset' => $offset, 'search' => $search]);
-  $users = User::users_list();
+//   info
+  $users = User::users_list(['mode' => 'page', 'offset' => $offset, 'search' => $search]);
 
 
   // output
